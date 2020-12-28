@@ -74,9 +74,9 @@ class UserController extends Controller
         {
             $user = User::find($id);
 
-            // if (Gate::denies('update-user', $user)) {
-            //     abort(403, "You can't edit post");
-            // };
+            if (Gate::denies('update-user', $user)) {
+                abort(403, "You can't edit post");
+            };
 
             return view('users.edit', ['user'=>$user]);
         }
@@ -92,9 +92,9 @@ class UserController extends Controller
         {
             $user = User::findOrFail($id);
 
-            // if (Gate::denies('update-user', $user)) {
-            //     abort(403, "You can't edit post");
-            // };
+            if (Gate::denies('update-user', $user)) {
+                abort(403, "You can't edit post");
+            };
 
             $validated = $request->validated();
             $user->fill($validated);
