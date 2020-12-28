@@ -12,8 +12,7 @@
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm mb-3">
         <h5 class="my-0 mr-md-auto font-weight-normal">Laravel app</h5>
         <nav class="my-2 my-md-0 mr-md-3" >
-            <a class="p-2 text-dark" href="{{ route('users.index') }}">Blog Post</a>
-            <a class="p-2 text-dark" href="{{ route('users.create') }}">User Form</a>
+            <a class="p-2 text-dark" href="{{ route('users.index') }}">Users List</a>
 
             @guest
                 @if (Route::has('register'))
@@ -21,13 +20,20 @@
                 @endif
                     <a class="p-2 text-dark" href="{{ route('login')}}">Login</a>
             @else
-                <a class="p-2 text-dark" href="{{ route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout ({{ Auth::user()->name }})</a>
+                <a class="p-2 text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{ Auth::user()->name }} <span class="caret"></span></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @if (session('impersonate_by'))
+                            <a classic="dropdown-item" href="{{ route('impersonate_leave') }}">Back to my user</a>
+                        @endif
+                    <a class="p-2 text-dark" href="{{ route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout ({{ Auth::user()->name }})</a>
 
-                <form id="logout-form" action={{ route('logout') }} method="POST"
+                    <form id="logout-form" action={{ route('logout') }} method="POST"
                         style="display: none;">
                     @csrf
 
-                </form>
+                    </form>
+                    </div>
+
             @endguest
 
         </nav>

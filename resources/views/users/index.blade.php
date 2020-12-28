@@ -25,6 +25,9 @@
                                     {{-- @can('home.secret')
                                         <td><a class="btn btn-primary" href="{{ route('login', ['user' => $->id]) }}">Login As</a></td>
                                     @endcan --}}
+                                    @canImpersonate($guard = null)
+                                         <td><a class="btn btn-primary" href="{{ route('impersonate', $user->id) }}">Login As</a></td>
+                                    @endCanImpersonate
                                 </tr>
 
                             @endforeach
