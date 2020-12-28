@@ -17,9 +17,9 @@
                             @foreach ($users as $user)
 
                                 <tr>
-                                    <td><a href="{{ route('users.show', ['user' =>$post->id]) }}">{{ $user->name ?? null}}</a></td>
-                                    <td><a href="{{ route('users.show', ['user' =>$post->id]) }}">{{ $user->unique ?? null}}</a></td>
-                                    <td><a href="{{ route('users.show', ['user' =>$post->id]) }}">{{ $user->login_count ?? null}}</a></td>
+                                    <td><a href="{{ route('users.show', ['user' =>$user->id]) }}">{{ $user->name ?? null}}</a></td>
+                                    <td><a href="{{ route('users.show', ['user' =>$user->id]) }}">{{ $user->unique ?? null}}</a></td>
+                                    <td><a href="{{ route('users.show', ['user' =>$user->id]) }}">{{ $user->login_count ?? null}}</a></td>
                                     <td><a class="btn btn-primary" href="{{ route('users.edit', ['user' => $user->id]) }}">Edit</a></td>
 
                                     {{-- @can('home.secret')

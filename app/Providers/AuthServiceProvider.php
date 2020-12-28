@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -33,10 +33,11 @@ class AuthServiceProvider extends ServiceProvider
             return $user->is_active==0;
         });
 
-        Gate::before(function ($user, $ability) {
-            if($user -> is_admin==1)  {
+        Gate::before(function ($user) {
+            if($user->is_admin==1)  {
                 return true;
         }
         });
+
     }
 }

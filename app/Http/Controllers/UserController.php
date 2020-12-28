@@ -43,10 +43,11 @@ class UserController extends Controller
         {
             $validatedData = $request->validated();
             $userPost = User::create($validatedData);
+            // User::create($validatedData);
 
             $request->session()->flash('status', 'was created');
 
-            return redirect()->route('users.show', ['post' =>$userPost->id]);
+            return redirect()->route('users.show', ['user',$userPost->id]);
         }
 
 
@@ -58,7 +59,7 @@ class UserController extends Controller
          */
         public function show($id)
         {
-            return view('users.show', ['post' =>User::findOrFail($id)]);
+            return view('users.show', ['user' =>User::findOrFail($id)]);
         }
 
         /**
@@ -71,9 +72,9 @@ class UserController extends Controller
         {
             $user = User::find($id);
 
-            if (Gate::denies('update-user', $user)) {
-                abort(403, "You can't edit post");
-            };
+            // if (Gate::denies('update-user', $user)) {
+            //     abort(403, "You can't edit post");
+            // };
 
             return view('users.edit', ['user'=>$user]);
         }
@@ -89,9 +90,9 @@ class UserController extends Controller
         {
             $user = User::findOrFail($id);
 
-            if (Gate::denies('update-user', $user)) {
-                abort(403, "You can't edit post");
-            };
+            // if (Gate::denies('update-user', $user)) {
+            //     abort(403, "You can't edit post");
+            // };
 
             $validated = $request->validated();
             $user->fill($validated);
