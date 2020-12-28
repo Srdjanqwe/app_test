@@ -6,7 +6,6 @@ use App\Http\Requests\StorePost;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Lab404\Impersonate\Models\Impersonate;
 
 
 class UserController extends Controller
@@ -116,15 +115,15 @@ class UserController extends Controller
             //
         }
 
-        public function impersonate($id)
+        public function impersonate($user_id)
         {
-            $user = User::findOrFail($id);
+            $user = User::findOrFail($user_id);
             Auth::user()->impersonate($user);
-            return view('users.index',['users' =>User::all()]);
+                return view('users.index',['users' =>User::all()]);
         }
         public function impersonate_leave()
         {
             Auth::user()->leaveImpersonation();
-            return view('users.index',['users' =>User::all()]);
+                return view('users.index',['users' =>User::all()]);
         }
 }

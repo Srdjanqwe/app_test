@@ -20,10 +20,11 @@
                 @endif
                     <a class="p-2 text-dark" href="{{ route('login')}}">Login</a>
             @else
-                <a class="p-2 text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{ Auth::user()->name }} <span class="caret"></span></a>
+
+            <a class="p-2 text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{ Auth::user()->name }} <span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @if (session('impersonate_by'))
-                            <a classic="dropdown-item" href="{{ route('impersonate_leave') }}">Back to my user</a>
+                        @if (session('impersonated_by'))
+                            <li><a classic="dropdown-item" href="{{ route('impersonate_leave') }}">Back to my user</a></li>
                         @endif
                     <a class="p-2 text-dark" href="{{ route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout ({{ Auth::user()->name }})</a>
 
