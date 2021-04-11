@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Http\Requests\StorePost;
+use App\Http\Requests\StoreUserPost;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +41,7 @@ class UserController extends Controller
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */
-        public function store(StorePost $request)
+        public function store(StoreUserPost $request)
         {
             $validatedData = $request->validated();
             $userPost = User::create($validatedData);
@@ -88,7 +88,7 @@ class UserController extends Controller
          * @param  int  $id
          * @return \Illuminate\Http\Response
          */
-        public function update(StorePost $request, $id)
+        public function update(StoreUserPost $request, $id)
         {
             $user = User::findOrFail($id);
 
@@ -115,15 +115,15 @@ class UserController extends Controller
             //
         }
 
-        public function impersonate($user_id)
-        {
-            $user = User::findOrFail($user_id);
-            Auth::user()->impersonate($user);
-                return view('users.index',['users' =>User::all()]);
-        }
-        public function impersonate_leave()
-        {
-            Auth::user()->leaveImpersonation();
-                return view('users.index',['users' =>User::all()]);
-        }
+        // public function impersonate($user_id)
+        // {
+        //     $user = User::findOrFail($user_id);
+        //     Auth::user()->impersonate($user);
+        //         return view('users.index',['users' =>User::all()]);
+        // }
+        // public function impersonate_leave()
+        // {
+        //     Auth::user()->leaveImpersonation();
+        //         return view('users.index',['users' =>User::all()]);
+        // }
 }
