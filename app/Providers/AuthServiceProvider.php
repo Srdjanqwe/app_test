@@ -27,13 +27,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Gate::define('edit-user', function ($user) {
-        //     return $user->is_active==0;
+        // Gate::define('create-post', function ($user) {
+        //     return $user->is_admin==0;
         // });
 
-        // Gate::define('update-user', function ($user) {
-        //     return $user->is_active==0;
-        // });
+        Gate::define('update-post', function ($user, $post) {
+            return $user->id == $post->user_id;
+        });
 
         Gate::define('home.contact', function ($user) {
             return $user->is_admin;
@@ -43,10 +43,14 @@ class AuthServiceProvider extends ServiceProvider
             return $user->is_admin;
         });
 
+        Gate::define('home.create', function ($user) {
+            return $user->is_admin==0;
+        });
+
         Gate::before(function ($user, $ability) {
-            // if($user -> is_admin && in_array($ability, ['delete'])) {
-            //     return true;
-            // }
+            if($user -> is_admin && in_array($ability, ['delete'])) {
+                return true;
+            }
         });
 
     }

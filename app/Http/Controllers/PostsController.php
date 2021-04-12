@@ -6,6 +6,7 @@ use App\Models\Image;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePost;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
@@ -26,9 +27,11 @@ class PostsController extends Controller
         //     $path = $request->file('thumbnail')->store('thumbnails');
         // }
 
-        return view('posts.index',['posts'=> BlogPost::latest()
+        // return view('posts.index',['posts'=> BlogPost::latest()
         // ->published()
-        ->get()]);
+        // ->get()]);
+
+        return view('posts.index',['posts'=> BlogPost::all()->where('is_published', true)]);
     }
 
 
@@ -87,10 +90,10 @@ class PostsController extends Controller
     {
         $post = BlogPost::findOrFail($id);
 
-        $this->authorize('update', $post);
-        // if (Gate::denies('update-post', $post)) {
-        //     abort(403, "You can't edit this blog-post");
-        // }
+        // $this->authorize('update', $post);
+        if (Gate::denies('update-post', $post)) {
+            abort(403, "You can't edit this blog-post");
+        }
 
         return view('posts.edit', ['posts'=> $post]);
 
@@ -103,11 +106,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePost $request, $id)
     {
         $post = BlogPost::findOrFail($id);
 
-        $this->authorize('update', $post);
+        // $this->authorize('update', $post);
         // if (Gate::denies('update-post', $post)) {
         //     abort(403, "You can't edit this blog-post");
         // }

@@ -14,10 +14,9 @@
         <nav class="my-2 my-md-0 mr-md-3" >
             <a class="p-2 text-dark" href="{{ route('posts.index') }}">Home</a>
 
-            @can('home.contact')<a class="p-2 text-dark" href="{{ route('users.index') }}">Users List</a>@endcan
-            @can('home.dash')<a class="p-2 text-dark" href="{{ route('posts.index') }}">Dashboard</a>@endcan
-
-            <a class="p-2 text-dark" href="{{ route('posts.create') }}">Add Blog</a>
+            @can('home.contact')<a class="p-2 text-dark" href="{{ route('contact') }}">Users List</a>@endcan
+            @can('home.dash')<a class="p-2 text-dark" href="{{ route('dash') }}">Dashboard</a>@endcan
+            @can('home.create')<a class="p-2 text-dark" href="{{ route('create') }}">Add Blog</a>@endcan
 
             @guest
                 @if (Route::has('register'))

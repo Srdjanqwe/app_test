@@ -25,6 +25,12 @@
 
                         <div class="mb-3">
                             @auth
+                                @can('update', $post)
+                                    <a href="{{ route('posts.edit', ['post'=> $post->id]) }}" class="btn btn-primary">Edit</a>
+                                @endcan
+                            @endauth
+
+                            @auth
                                 @if(!$post->trashed())
                                     @can('delete', $post)
                                         <form class="d-inline" action="{{ route('posts.destroy', ['post'=> $post->id]) }}" method="POST">

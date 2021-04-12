@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 // use Lab404\Impersonate\Models\Impersonate;
 
 
@@ -49,4 +50,20 @@ class User extends Authenticatable
     //     // For example
     //     return $this->is_admin == 1;
     // }
+    public function blogPosts()
+    {
+        // return $this->hasMany(App\Models\BlogPost::class);
+        return $this->hasMany('App\Models\BlogPost');
+
+    }
+
+    public function image()
+    {
+        return $this->morphOne('App\Models\Image', 'imageable');
+    }
+
+    public function scopeThatIsAdmin(Builder $query)
+    {
+        return $query->where('is_admin', true);
+    }
 }

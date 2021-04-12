@@ -36,7 +36,6 @@ class BlogPost extends Model
         return $query->where('is_published', true);
     }
 
-
     public static function boot()
     {
         // static::addGlobalScope(new LatestScope);
