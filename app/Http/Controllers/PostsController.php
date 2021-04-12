@@ -23,14 +23,6 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // if ($request->hasFile('thumbnail')) {
-        //     $path = $request->file('thumbnail')->store('thumbnails');
-        // }
-
-        // return view('posts.index',['posts'=> BlogPost::latest()
-        // ->published()
-        // ->get()]);
-
         return view('posts.index',['posts'=> BlogPost::all()->where('is_published', true)]);
     }
 
@@ -90,10 +82,10 @@ class PostsController extends Controller
     {
         $post = BlogPost::findOrFail($id);
 
-        // $this->authorize('update', $post);
-        if (Gate::denies('update-post', $post)) {
-            abort(403, "You can't edit this blog-post");
-        }
+        $this->authorize('update', $post);
+        // if (Gate::denies('update-post', $post)) {
+        //     abort(403, "You can't edit this blog-post");
+        // }
 
         return view('posts.edit', ['posts'=> $post]);
 
@@ -116,8 +108,6 @@ class PostsController extends Controller
         // }
 
         $validatedData = $request->validated();
-        // $posts->title=$validatedData['title'];
-        // $posts->content=$validatedData['content'];
         $post->fill($validatedData);
 
         if ($request->hasFile('thumbnail')) {

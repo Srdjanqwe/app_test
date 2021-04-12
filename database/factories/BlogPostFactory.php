@@ -26,6 +26,8 @@ class BlogPostFactory extends Factory
             'title'=>$this->faker->sentence(3),
             'content'=>$this->faker->paragraphs(5, true),
             'is_published'=>$this->faker->boolean,
+            // 'user_id'=>$this->faker->randomDigitNot(1),
+            // 'user_id'=>$this->faker->numberBetween()
             'created_at'=>$this->faker->dateTimeBetween('-3 months'),
         ];
     }

@@ -14,7 +14,7 @@ class BlogPostTableSeeder extends Seeder
     public function run()
     {
         $blogCount = $this->command->ask('How many blog posts would you like?',4);
-        $users = \App\Models\User::all();
+        $users = \App\Models\User::all()->except(['is_admin','=','1']);
 
         \App\Models\BlogPost::factory($blogCount)->make()->each(function($posts) use ($users) {
             $posts->user_id = $users -> random()->id;
