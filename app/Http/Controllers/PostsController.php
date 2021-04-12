@@ -102,7 +102,7 @@ class PostsController extends Controller
     {
         $post = BlogPost::findOrFail($id);
 
-        // $this->authorize('update', $post);
+        $this->authorize('update', $post);
         // if (Gate::denies('update-post', $post)) {
         //     abort(403, "You can't edit this blog-post");
         // }
@@ -111,7 +111,7 @@ class PostsController extends Controller
         $post->fill($validatedData);
 
         if ($request->hasFile('thumbnail')) {
-            $path = $request->file('thumbnail')->store('thumbnails');
+            $path = $request->file('thumbnail')->store('public/thumbnails');
 
             if ($post->image) {
                 Storage::delete($post->image->path);
