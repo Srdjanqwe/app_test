@@ -116,7 +116,7 @@ class PostsController extends Controller
             if ($post->image) {
                 Storage::delete($post->image->path);
                 $post->image->path = $path;
-                $post->image->save();
+                // $post->image->save();
             } else {
                 $post->image()->save(
                     Image::make(['path' => $path])
